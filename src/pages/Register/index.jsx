@@ -3,7 +3,7 @@ import React, { useState } from 'react'
 import * as yup from 'yup';
 import { useForm } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
-import { useLoaderData, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { FormContainer } from '../../styles/FormContainer'
 import { MainRegister } from './style'
 import { StyledTitle } from '../../styles/typography';
