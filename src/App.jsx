@@ -1,6 +1,6 @@
 import { useState } from "react"
 import { ThemeProvider } from "styled-components"
-import RoutesHTML from "./routes"
+import RoutesHTML from "./Routes"
 import { darkTheme, mainTheme } from "./styles/theme"
 import GlobalStyle from './styles/Global';
 import { ToastContainer } from "react-toastify";
