@@ -12,12 +12,13 @@ function App() {
   const [darkMode, setDarkmode] = useState(true)
 
 
+
   return (
     <div className="App">
 
     <ThemeProvider theme={ darkMode ? darkTheme : mainTheme}>
       <GlobalStyle/>
-      <RoutesHTML/>
+      <RoutesHTML />
     </ThemeProvider>
     <ToastContainer
         position="top-left"

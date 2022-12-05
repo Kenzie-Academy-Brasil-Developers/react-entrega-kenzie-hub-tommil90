@@ -12,7 +12,7 @@ const RoutesHTML = () => {
         <Route path='/' element={ <Navigate to="/login" /> }/>
         <Route path='/login' element={ <Login/> }/>
         <Route path='/Register' element={ <Register/> }/>
-        <Route path='/Home' element={ <Home/> }/>
+        <Route path='/Home/:name' element={ <Home/> }/>
     </Routes>
   )
 }

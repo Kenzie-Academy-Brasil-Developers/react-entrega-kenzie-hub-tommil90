@@ -47,14 +47,15 @@ const Login = () => {
         if(response.status === 200){
           const token  = response.data.token
           const userId = response.data.user.id
+          const name = response.data.user.name
           
           localStorage.setItem("@TOKEN", JSON.stringify(token))
           localStorage.setItem("@USERID", JSON.stringify(userId))
 
-          toast.success(`Bem-vindo ${response.data.user.name}`)
+          toast.success(`Bem-vindo ${ name }`)
           setTimeout(()=> {
-            navigate("/home")
-          }, 3000)
+            navigate(`/home/${ name }`)
+          }, 1000)
 
         }else{
           toast.error("Email ou pass inválido, tente novamente")
@@ -74,11 +75,6 @@ const Login = () => {
     loginUser()
   }
 
-const showToastMessage = () => {
-    toast.success('Success Notification !', {
-        position: toast.POSITION.TOP_RIGHT
-    });
-};
 
   return (
     <MainLogin>
@@ -94,16 +90,16 @@ const showToastMessage = () => {
             <form  onSubmit={handleSubmit(onSubmitFunction)}>
 
             <label htmlFor="email" >Email</label>   
-            <input placeholder="Digite seu Email" id="email" {...register("email")} />
+            <input type="text" placeholder="Digite seu Email" id="email" {...register("email")} />
             { errors.email?.message && <small  className="alert">{ errors.email.message }</small> }
 
 
             <label htmlFor="password<" >Senha</label> 
-            <input placeholder="Digite sua senha" id="password<"  {...register("password")} />
+            <input  type="password" placeholder="Digite sua senha" id="password<"  {...register("password")} />
             { errors.password?.message && <small  className="alert">{ errors.password.message }</small> }
     
 
-            <StyledButton type="submit" buttonSize="default" buttonStyle="solidPrimary" >{ !loading ? "Entrar" : <Spinner src={spinner} alt="spinner" />  }</StyledButton>
+            <StyledButton type="submit" buttonSize="default" buttonStyle="solidPrimary" disabled ={loading} >{ !loading ? "Entrar" : <Spinner src={spinner} alt="spinner" />  }</StyledButton>
 
             </form>
 

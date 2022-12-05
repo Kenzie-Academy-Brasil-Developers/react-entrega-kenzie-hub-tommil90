@@ -1,38 +1,12 @@
 
 import React, { useEffect, useState } from 'react'
+import { useParams } from 'react-router-dom'
 import { api } from '../../services/api'
 import { StyledHeader } from './style'
 
-const Header = () => {
-
-    const [user, setUser] = useState({})
+const Header = ({ user }) => {
 
     const { name, course_module } = user
-
-
-    useEffect(() => {
-
-        async function getDataUser(){
-            
-            try {
-                
-                const userID = JSON.parse(localStorage.getItem("@USERID"))
-
-                const response = await api.get(`/users/${userID}`)
-
-             
-                if(response.status === 200){
-                    
-                    setUser(response.data)
-                }
-
-            } catch (error) {
-                console.log(error)
-            }
-
-        }    
-        getDataUser()
-    }, [])
 
   return (
     <StyledHeader>
