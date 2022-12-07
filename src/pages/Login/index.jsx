@@ -1,79 +1,31 @@
-import React, { useState } from 'react'
-import * as yup from 'yup';
 import { useForm } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
 import Logo from '../../assets/Logo.svg'
 import { FormContainer } from '../../styles/FormContainer'
 import { MainLogin } from './style'
-import { useNavigate } from 'react-router-dom';
-import { api } from '../../services/api';
 import { StyledButton } from '../../styles/buttons';
 import { StyledTitle } from '../../styles/typography';
 import { Spinner } from '../../styles/spinner';
 import spinner from '../../assets/spinner.svg'
-import { toast } from 'react-toastify';
+import { useContext } from 'react';
+import { AuthContext } from '../../contexts/AuthContext';
+import { loginSchema } from './schemaLogin';
+import { useNavigate } from "react-router-dom";
+
 
 
 
 
 const Login = () => {
 
-  const navigate = useNavigate() 
-  const [loading, serLoading] = useState(false)
-
-  const loginSchema = yup.object().shape({
-
-    email: yup.string().required("Precisa um Email cadastrado").email("escibir mail en formato correto"), 
-    password: yup.string().required("Senha é requerida")
-
-  })  
+  const navigate = useNavigate()
+  const { onSubmitLogin, loading } = useContext(AuthContext)
+ 
 
   const { register, handleSubmit, formState: { errors } } = useForm({
 
     resolver: yupResolver(loginSchema)
   })
-
-  const onSubmitFunction = data => {
-
-   
-
-    async function loginUser(){
-        
-      try {
-
-        serLoading(true)
-        const response = await api.post("/sessions", data)
-        console.log(response.data.user.id)
-        if(response.status === 200){
-          const token  = response.data.token
-          const userId = response.data.user.id
-          const name = response.data.user.name
-          
-          localStorage.setItem("@TOKEN", JSON.stringify(token))
-          localStorage.setItem("@USERID", JSON.stringify(userId))
-
-          toast.success(`Bem-vindo ${ name }`)
-          setTimeout(()=> {
-            navigate(`/home/${ name }`)
-          }, 1000)
-
-        }else{
-          toast.error("Email ou pass inválido, tente novamente")
-        }
-        
-      } catch (error) {
-        // console.log(!!error.response.data.message)
-
-        if(!!error.response.data.message){
-          toast.error("Email ou pass inválido, tente novamente")
-        }
-      }finally{
-        serLoading(false)
-      }
-    }
-
-    loginUser()
-  }
 
 
   return (
@@ -87,7 +39,7 @@ const Login = () => {
        
            <StyledTitle tag="h2" fontSize="h2" >Login</StyledTitle>
 
-            <form  onSubmit={handleSubmit(onSubmitFunction)}>
+            <form  onSubmit={handleSubmit(onSubmitLogin)}>
 
             <label htmlFor="email" >Email</label>   
             <input type="text" placeholder="Digite seu Email" id="email" {...register("email")} />
@@ -121,3 +73,45 @@ export default Login
 /*
 <Spinner src={spinner} alt="spinner" />  
 */
+
+/*
+  const onSubmitLogin = data => {
+
+    async function loginUser(){
+        
+      try {
+
+        setLoading(true)
+        const response = await api.post("/sessions", data)
+  
+        if(response.status === 200){
+          const token  = response.data.token
+          const userId = response.data.user.id
+          const name = response.data.user.name
+          
+          localStorage.setItem("@TOKEN", JSON.stringify(token))
+          localStorage.setItem("@USERID", JSON.stringify(userId))
+
+          toast.success(`Bem-vindo ${ name }`)
+          setTimeout(()=> {
+            navigate(`/home/${ name }`)
+          }, 1000)
+
+        }else{
+          toast.error("Email ou pass inválido, tente novamente")
+        }
+        
+      } catch (error) {
+        // console.log(!!error.response.data.message)
+
+        if(!!error.response.data.message){
+          toast.error("Email ou pass inválido, tente novamente")
+        }
+      }finally{
+        setLoading(false)
+      }
+    }
+
+    loginUser()
+  }
+  */

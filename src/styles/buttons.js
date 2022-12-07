@@ -32,7 +32,13 @@ export const StyledButton = styled.button`
                     width: 80px;
                     height: 32px;
                     
-                `       
+                `
+            case "vSmall":
+                return css`
+                    width: 33px;
+                    height: 32px;
+                    
+                `           
         }
     }}
     ${({buttonStyle}) => {
@@ -58,7 +64,7 @@ export const StyledButton = styled.button`
                 `    
             case "outline2":
                 return css`
-                    background: var(--grey-1);
+                    background: var(--grey-3);
                     border-color: var(--grey-3);
                     &:hover{
                         background: var(--color-primary-focus);

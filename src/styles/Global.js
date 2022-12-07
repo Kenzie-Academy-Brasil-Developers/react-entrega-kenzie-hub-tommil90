@@ -1,4 +1,5 @@
-import { createGlobalStyle } from 'styled-components';
+import { createGlobalStyle } from "styled-components"
+
 
 const GlobalStyle = createGlobalStyle`
   
@@ -58,6 +59,8 @@ body {
   font-family: "Inter", sans-serif;
   background-color: var(--grey-4); 
   color: var(--grey-0);
+  /* background-color:  ${(props) => props.theme.grey4};
+  color: ${(props) => props.theme.grey0}; */
   
   /*background: var(--color-background);
     color: var(--color-text);

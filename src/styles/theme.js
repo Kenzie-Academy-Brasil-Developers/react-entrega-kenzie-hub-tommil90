@@ -1,5 +1,4 @@
-
-export const mainTheme = {
+ const lightTheme = {
     colors: {
         colorPrimary: "#FF577F",
         colorPrimaryFocus: "#FF577F",
@@ -48,3 +47,9 @@ export const darkTheme = {
   --warning: #FFCD07;
   --sucess: #3FE864;
   --information: #155BCB; */
+
+  export const themes = {
+
+    light: lightTheme,
+    dark: darkTheme
+  }

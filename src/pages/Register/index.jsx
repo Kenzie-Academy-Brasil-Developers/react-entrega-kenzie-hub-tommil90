@@ -1,6 +1,5 @@
 
 import React, { useState } from 'react'
-import * as yup from 'yup';
 import { useForm } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useNavigate } from 'react-router-dom'
@@ -9,29 +8,17 @@ import { MainRegister } from './style'
 import { StyledTitle } from '../../styles/typography';
 import Logo from '../../assets/Logo.svg'
 import { StyledButton } from '../../styles/buttons';
-import { api } from '../../services/api';
 import { Spinner } from '../../styles/spinner';
 import spinner from '../../assets/spinner.svg'
-import { toast } from 'react-toastify';
+import { registerSchema } from './schema';
+import { useContext } from 'react';
+import { UserContext } from '../../contexts/UserContext';
 
 const Register = () => {
 
   const navigate = useNavigate()
-  const [loading, setLoading] = useState(false)
-
-  const registerSchema = yup.object().shape({
-
-    name: yup.string().required("Nome é requerido").min(3, "Nome precisa al menos 3 letras").max(20, "Nome precisa ser menos de 20 letras"),
-    email: yup.string().required("Email é requerido").email("escibir mail en formato correto"),
-    password: yup.string().required("Senha é requerida").min(6, " Senha precisa ser de al menos 8 caractéres").matches(/(?=.*?[A-Z])/, "Sua senha precisa uma letra maiúscula"),
-    repeatPassword: yup.string().required("Senha é requerida").min(6, " Senha precisa ser de al menos 8 caractéres").matches(/(?=.*?[A-Z])/, "Sua senha precisa uma letra maiúscula").oneOf([yup.ref("password")], "As senhas não são iguais"),
-    bio: yup.string().required("Bio é requerida").max(20, "Bio máximo 20 caracteres"),
-    contact: yup.string().required("Indique algúm Contato"),
-    course_module: yup.string().required("Seleccione um módulo"),
-
-
-  })
-   
+  const { registerUser, loading } = useContext(UserContext)
+  
 
   const { register, handleSubmit, formState: { errors }, reset } = useForm({
   
@@ -42,40 +29,11 @@ const Register = () => {
 
   const submit = data => {
     
-    console.log(data)
+
     reset()
+    registerUser(data)
 
-    async function registerUser(){
-        
-      try {
-
-        setLoading(true)
-        const response = await api.post("/users", data)
-     
-
-        if(response.status === 201){
-
-          toast.success("Usuario Cadastrado com sucesso")
-
-          setTimeout(()=> {
-            navigate("/Login")
-          }, 3000)
-        }
-        
-        
-      } catch (error) {
-        console.log(error)
-        if(error){
-          toast.error("Email já foi cadastrado")
-        }
-    
-      }finally{
-        setLoading(false)
-      }
-    }
-
-    registerUser()
- 
+   
   }
 
   return (
@@ -147,3 +105,38 @@ const Register = () => {
 }
 
 export default Register
+
+
+/*
+ async function registerUser(){
+        
+      try {
+
+        setLoading(true)
+        const response = await api.post("/users", data)
+     
+
+        if(response.status === 201){
+
+          toast.success("Usuario Cadastrado com sucesso")
+
+          setTimeout(()=> {
+            navigate("/Login")
+          }, 3000)
+        }
+        
+        
+      } catch (error) {
+        console.log(error)
+        if(error){
+          toast.error("Email já foi cadastrado")
+        }
+    
+      }finally{
+        setLoading(false)
+      }
+    }
+
+    registerUser()
+ 
+  */

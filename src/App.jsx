@@ -1,24 +1,38 @@
-import { useState } from "react"
+import { useCallback, useState } from "react"
 import { ThemeProvider } from "styled-components"
-import RoutesHTML from "./Routes"
-import { darkTheme, mainTheme } from "./styles/theme"
+import RoutesMain from "./Routes"
 import GlobalStyle from './styles/Global';
 import { ToastContainer } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
+import { themes } from "./styles/theme";
+import { AuthProvider } from "./contexts/AuthContext";
+
 
 
 function App() {
 
-  const [darkMode, setDarkmode] = useState(true)
+  const [currentTheme, setCurrentTheme] = useState("light")
 
+  const getOpositeTheme = useCallback(
+
+    () => (
+      currentTheme === "light" ? "dark" : "light"
+    ), [currentTheme]
+  )
 
 
   return (
     <div className="App">
 
-    <ThemeProvider theme={ darkMode ? darkTheme : mainTheme}>
+
+    <ThemeProvider theme={themes[currentTheme]}>
+      <button onClick={ ()=> setCurrentTheme(getOpositeTheme()) } >switch to {getOpositeTheme()} mode</button>
       <GlobalStyle/>
-      <RoutesHTML />
+
+      <AuthProvider>
+        <RoutesMain />
+      </AuthProvider>
+
     </ThemeProvider>
     <ToastContainer
         position="top-left"
@@ -32,6 +46,7 @@ function App() {
         pauseOnHover
         theme="light"
       />
+
 
 
       

@@ -1,11 +1,12 @@
 
-import React, { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
-import { api } from '../../services/api'
+import React, { useContext } from 'react'
+import { AuthContext } from '../../contexts/AuthContext'
+
 import { StyledHeader } from './style'
 
-const Header = ({ user }) => {
+const Header = () => {
 
+    const { user } = useContext(AuthContext)
     const { name, course_module } = user
 
   return (

@@ -12,11 +12,11 @@ const NavBar = () => {
 
     const handleLogout = () =>{
 
-      localStorage.removeItem("@TOKEN")
-      localStorage.removeItem("@USERID")
+      localStorage.removeItem("@kenzieHub:TOKEN")
+      localStorage.removeItem("@kenzieHub:USERID")
       navigate("/")
     }
-    
+
   return (
         <StyledNav>
             <Container>
