@@ -3,7 +3,7 @@ import { Navigate, Route, Routes } from 'react-router-dom'
 import Login from '../pages/Login'
 import Register from '../pages/Register'
 import Home from '../pages/Home'
-import Teste from '../Teste'
+
 
 
 
@@ -14,7 +14,7 @@ const RoutesMain = () => {
         <Route path='/login' element={ <Login/> }/>
         <Route path='/register' element={ <Register/> }/>
         <Route path='/home/:name' element={ <Home/> }/>
-        <Route path='/teste' element={ <Teste/> }/>
+        <Route path='*' element={ <Home/> }/>
     </Routes>
   )
 }

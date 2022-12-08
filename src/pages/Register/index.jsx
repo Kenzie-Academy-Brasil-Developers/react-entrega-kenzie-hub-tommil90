@@ -106,37 +106,3 @@ const Register = () => {
 
 export default Register
 
-
-/*
- async function registerUser(){
-        
-      try {
-
-        setLoading(true)
-        const response = await api.post("/users", data)
-     
-
-        if(response.status === 201){
-
-          toast.success("Usuario Cadastrado com sucesso")
-
-          setTimeout(()=> {
-            navigate("/Login")
-          }, 3000)
-        }
-        
-        
-      } catch (error) {
-        console.log(error)
-        if(error){
-          toast.error("Email já foi cadastrado")
-        }
-    
-      }finally{
-        setLoading(false)
-      }
-    }
-
-    registerUser()
- 
-  */

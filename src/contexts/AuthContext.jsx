@@ -63,10 +63,17 @@ export const AuthProvider = ({ children }) => {
             localStorage.setItem("@kenzieHub:TOKEN",token)
             localStorage.setItem("@kenzieHub:USERID", userId)
 
+            //alternativa pra mandar uma vez só o token nas request
+            // api.defaults.headers.common.authorization = `Bearer ${token}`
+            
+
             setUser(response.data.user)
+
+            // const toNavigate = location.state?.from?.pathname || `/home/${ name }`
+            // navigate(toNavigate, , {replace: true})
   
             toast.success(`Bem-vindo ${ name }`)
-            navigate(`/home/${ name }`)
+            navigate(`/home/${ name }` )
   
           }else{
             toast.error("Email ou pass inválido, tente novamente")

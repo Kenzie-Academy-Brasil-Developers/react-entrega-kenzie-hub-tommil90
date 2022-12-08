@@ -34,6 +34,29 @@ export const TechProvider = ({ children }) =>{
 
     }
 
+
+    async function editTech(id, data){
+
+        const token = localStorage.getItem("@kenzieHub:TOKEN")
+       
+        try {
+    
+            const response = await api.put(`/users/techs/${id}`, data, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            })
+
+            toast.success("Tech editada com sucesso")
+           
+        } catch (error) {
+            console.log(error)
+        } finally {
+
+        }
+
+    }
+
     async function deleteTech(id){
 
         const token = localStorage.getItem("@kenzieHub:TOKEN")
@@ -57,7 +80,7 @@ export const TechProvider = ({ children }) =>{
 
     return(
 
-        <TechContext.Provider value={{ createTech, loading, deleteTech }} >  
+        <TechContext.Provider value={{ createTech, loading, editTech, deleteTech }} >  
             { children }
         </TechContext.Provider>
     )
